@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "next dev --port=4000",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start"
   },
   "dependencies": {
     "cloudinary": "^2.7.0",
+    "mongoose": "^8.19.1",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
@@ -23,6 +23,7 @@
     "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
-    "@eslint/eslintrc": "^3"
+    "@eslint/eslintrc": "^3",
+    "tsx": "^4.7.0"
   }
 }
