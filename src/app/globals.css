@@ -10,19 +10,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --animate-wiggle: wiggle 2s ease-in-out infinite;
-  @keyframes wiggle {
-    0%,
-    100% {
-      transform: rotate(-100deg);
-    }
-    50% {
-      transform: rotate(100deg);
-    }
-  }
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
