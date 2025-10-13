@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const allowedOrigins = [
-  "http://localhost:3000",
+  "http://localhost:3002",
   "https://your-frontend-domain.com",
 ]; // Replace with your allowed origins
 
