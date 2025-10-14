@@ -1,20 +1,13 @@
 import mongoose, { Schema } from "mongoose";
-
-type FoodSchemaType = {
-  name: string;
-  price: number;
-  ingredients: string;
-  category: string;
-  image: File;
-};
+import { FoodType } from "../utils/types";
 
 const FoodSchema = new Schema({
-  name: { type: String },
-  price: { type: Number },
-  ingredients: { type: String },
-  category: { type: String },
-  image: { type: String },
+  name: String,
+  price: Number,
+  categoryId: Schema.Types.ObjectId,
+  ingredients: String,
+  imageUrl: String,
 });
 
 export const Food =
-  mongoose.models.Food || mongoose.model<FoodSchemaType>("Food", FoodSchema);
+  mongoose.models.Food || mongoose.model<FoodType>("Food", FoodSchema);

@@ -12,9 +12,3 @@ export const getAllCategories = async () => {
   await connectDB();
   return await Category.find();
 };
-
-export const deleteCategoryById = async (id: string) => {
-  await connectDB();
-  await Category.findByIdAndDelete(id);
-  return await Category.find();
-};
