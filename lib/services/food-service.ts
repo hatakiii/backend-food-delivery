@@ -4,7 +4,7 @@ import { FoodType } from "../utils/types";
 
 export const getAllFoods = async (): Promise<FoodType[]> => {
   await connectDB();
-  const allFoods: FoodType[] = await Food.find({});
+  const allFoods: FoodType[] = await Food.find({}).populate("categoryId");
   return allFoods;
 };
 

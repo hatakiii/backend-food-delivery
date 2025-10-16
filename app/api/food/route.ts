@@ -1,5 +1,3 @@
-import { Category } from "@/lib/models/Category";
-import { Food } from "@/lib/models/Food";
 import { createFood, getAllFoods } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
 import { NextRequest, NextResponse } from "next/server";
@@ -38,9 +36,6 @@ export async function POST(request: NextRequest) {
 }
 
 export const GET = async () => {
-  const foodsResponse = await getAllFoods();
-  Category;
-
-  const foods = await Food.find().populate("categoryId");
+  const foods = await getAllFoods();
   return NextResponse.json({ data: foods }, { status: 200 });
 };
