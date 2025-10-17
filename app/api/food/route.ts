@@ -1,3 +1,4 @@
+import { Food } from "@/lib/models/Food";
 import { createFood, getAllFoods } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
 import { NextRequest, NextResponse } from "next/server";
@@ -39,3 +40,19 @@ export const GET = async () => {
   const foods = await getAllFoods();
   return NextResponse.json({ data: foods }, { status: 200 });
 };
+
+// export const PUT = async () => {
+//   const formData = await request.formData();
+
+//   // Extract food fields from formData
+//   const name = formData.get("name") as string;
+//   const ingredients = formData.get("ingredients") as string;
+//   const price = formData.get("price") as string;
+//   const categoryId = formData.get("categoryId") as string;
+//   const image = formData.get("image") as File;
+
+//   const food = await Food.findByIdAndUpdate(id, {
+//     foodName:name,
+//     price:price
+//   })
+// };
