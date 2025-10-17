@@ -6,3 +6,10 @@ export type FoodType = {
   imageUrl: string;
   categoryId: string;
 };
+
+export type CategoryType = {
+  _id: string;
+  name: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
