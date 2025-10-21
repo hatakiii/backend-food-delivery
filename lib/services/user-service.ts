@@ -1,9 +1,13 @@
 import connectDB from "../mongodb";
 import { User } from "../models/User";
 
-export const createUser = async (email: string, password: string) => {
+export const createUser = async (
+  email: string,
+  password: string,
+  role: string
+) => {
   await connectDB();
-  const newUser = new User({ email, password });
+  const newUser = new User({ email, password, role });
   await newUser.save();
   return newUser;
 };

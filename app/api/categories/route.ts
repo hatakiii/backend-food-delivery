@@ -4,6 +4,8 @@ import {
   deleteCategoryById,
 } from "@/lib/services/category-service";
 import { NextRequest, NextResponse } from "next/server";
+import connectDB from "@/lib/mongodb";
+import { Category } from "@/lib/models/Category";
 
 export async function GET() {
   const categories = await getAllCategories();
@@ -40,6 +42,40 @@ export async function DELETE(req: NextRequest) {
     return new NextResponse(
       JSON.stringify({ error: error.message || "Failed to delete category" }),
       { status: 400 }
+    );
+  }
+}
+// app/api/categories/route.ts
+
+export async function PUT(req: NextRequest) {
+  try {
+    await connectDB();
+    const { id, newName } = await req.json();
+
+    if (!id || !newName)
+      return NextResponse.json(
+        { error: "Missing id or new name" },
+        { status: 400 }
+      );
+
+    const updatedCategory = await Category.findByIdAndUpdate(
+      id,
+      { name: newName },
+      { new: true }
+    );
+
+    if (!updatedCategory)
+      return NextResponse.json(
+        { error: "Category not found" },
+        { status: 404 }
+      );
+
+    return NextResponse.json({ data: updatedCategory });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to update category" },
+      { status: 500 }
     );
   }
 }
