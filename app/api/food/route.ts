@@ -1,4 +1,3 @@
-import { Food } from "@/lib/models/Food";
 import { createFood, getAllFoods } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
 import { NextRequest, NextResponse } from "next/server";

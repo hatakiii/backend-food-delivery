@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Food } from "@/lib/models/Food";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
+import { FoodType } from "@/lib/utils/types";
+
+type FoodUpdateData = {
+  name?: string;
+  ingredients?: string;
+  price?: number;
+  categoryId?: string;
+  imageUrl?: string;
+};
 
 export async function PUT(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params; // ✅ await params
+    const { id } = await context.params;
     const formData = await request.formData();
 
     const name = formData.get("name") as string;
@@ -16,7 +25,7 @@ export async function PUT(
     const categoryId = formData.get("categoryId") as string;
     const image = formData.get("image") as File | null;
 
-    const updateData: any = {
+    const updateData: FoodUpdateData = {
       name,
       ingredients,
       price: Number(price),
@@ -45,7 +54,7 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params; // ✅ await params
+    const { id } = await context.params;
     await Food.findByIdAndDelete(id);
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {

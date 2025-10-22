@@ -1,6 +1,6 @@
-import { createFood, getAllFoods } from "@/lib/services/food-service";
+import { getAllFoods } from "@/lib/services/food-service";
 import { loginUser } from "@/lib/services/user-service";
-import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

@@ -33,7 +33,7 @@ async function connectDB() {
       bufferCommands: false,
     };
 
-    // @ts-ignore - Type issue with mongoose connection caching
+    // @ts-expect-error - Type issue with mongoose connection caching
     cached!.promise = mongoose.connect(MONGODB_URI!, opts);
   }
 

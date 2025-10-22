@@ -38,9 +38,11 @@ export async function DELETE(req: NextRequest) {
     return new NextResponse(JSON.stringify({ message: "Category deleted" }), {
       status: 200,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Failed to delete category";
     return new NextResponse(
-      JSON.stringify({ error: error.message || "Failed to delete category" }),
+      JSON.stringify({ error: message || "Failed to delete category" }),
       { status: 400 }
     );
   }
