@@ -29,11 +29,7 @@ export const createFood = async (
     imageUrl,
   });
   const savedFood = await newFood.save();
-  return savedFood; // return actual food document
+  return savedFood; 
 };
 
-// const result = await createFood(...);
 
-// if (result) {
-//   return NextResponse.json({ message: "Food item received successfully" }, { status: 200 });
-// }
