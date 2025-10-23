@@ -1,3 +1,4 @@
+//food-service.ts
 import { Food } from "../models/Food";
 import connectDB from "../mongodb";
 
@@ -29,7 +30,5 @@ export const createFood = async (
     imageUrl,
   });
   const savedFood = await newFood.save();
-  return savedFood; 
+  return savedFood;
 };
-
-
