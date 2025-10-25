@@ -1,4 +1,3 @@
-import { getAllFoods } from "@/lib/services/food-service";
 import { loginUser, getAllUsers } from "@/lib/services/user-service";
 
 import { NextRequest, NextResponse } from "next/server";
