@@ -1,5 +1,5 @@
-//app/api/checkout
 import { NextRequest, NextResponse } from "next/server";
+import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import { FoodOrder } from "@/lib/models/Order";
 import { FoodOrderStatusEnum } from "@/lib/enums/foodOrderStatusEnum";
@@ -7,17 +7,27 @@ import { FoodOrderStatusEnum } from "@/lib/enums/foodOrderStatusEnum";
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
-    const { userId } = await req.json();
+
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { message: "Invalid or empty JSON body" },
+        { status: 400 }
+      );
+    }
+
+    const { userId } = body;
+    console.log("🧾 Checkout request body:", body);
 
     if (!userId) {
       return NextResponse.json({ message: "Missing userId" }, { status: 400 });
     }
 
-    // ✅ Find pending orders (not delivered yet)
-    // app/api/checkout/route.ts
     const pendingOrders = await FoodOrder.find({
-      user: userId, // not userId, because schema field is 'user'
-      status: FoodOrderStatusEnum.PENDING, // ✅ Only PENDING orders
+      user: new mongoose.Types.ObjectId(userId),
+      status: FoodOrderStatusEnum.PENDING,
     });
 
     if (!pendingOrders.length) {
@@ -27,10 +37,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // // ✅ Mark as delivered
-
     await FoodOrder.updateMany(
-      { user: userId, status: FoodOrderStatusEnum.PENDING },
+      {
+        user: new mongoose.Types.ObjectId(userId),
+        status: FoodOrderStatusEnum.PENDING,
+      },
       { $set: { status: FoodOrderStatusEnum.DELIVERED } }
     );
 
