@@ -3,13 +3,11 @@ import connectDB from "@/lib/mongodb";
 import { FoodOrder } from "@/lib/models/Order";
 import { getAllOrders } from "@/lib/services/order-service";
 
-// Interface for a single item in the incoming request body
 interface CartItemRequest {
-  foodId: string; // MongoDB ObjectId of the food item
+  foodId: string;
   quantity: number;
 }
 
-// Interface for the entire incoming POST request body
 interface OrderRequestBody {
   userId: string;
   items: CartItemRequest[];
@@ -19,20 +17,16 @@ interface OrderRequestBody {
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
-
-    // ✅ Extract userId from query params
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
 
     let orders;
 
     if (userId) {
-      // ✅ Filter orders by userId
       orders = await FoodOrder.find({ user: userId })
         .populate("foodOrderItems.food")
         .lean();
     } else {
-      // ✅ Fallback for admin: get all orders
       orders = await getAllOrders();
     }
 
@@ -46,12 +40,9 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// ✅ Add POST method with explicit types
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
-
-    // Cast the request body using the defined interface
     const body: OrderRequestBody = await req.json();
     const { userId, items, totalPrice } = body;
 
@@ -62,12 +53,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ✅ Create new order document
     const newOrder = new FoodOrder({
       user: userId,
-      // Map function uses CartItemRequest type for 'item'
       foodOrderItems: items.map((item: CartItemRequest) => ({
-        food: item.foodId, // Assuming foodOrderItems.food is a reference ID
+        food: item.foodId,
         quantity: item.quantity,
       })),
       totalPrice,

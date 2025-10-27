@@ -47,7 +47,6 @@ export async function DELETE(req: NextRequest) {
     );
   }
 }
-// app/api/categories/route.ts
 
 export async function PUT(req: NextRequest) {
   try {
