@@ -2,20 +2,16 @@
 import connectDB from "../mongodb";
 import mongoose from "mongoose";
 import { FoodOrder } from "../models/Order";
-import "../models/Food"; // ✅ ensure model registered
-import "../models/User"; // ✅ ensure model registered
+import "../models/Food";
+import "../models/User";
 import { FoodOrderStatusEnum } from "../enums/foodOrderStatusEnum";
 
-// Type for creating a new order
 interface OrderInput {
   userId: string;
   items: { foodId: string; quantity: number }[];
   totalPrice: number;
 }
 
-/**
- * Create a new food order
- */
 export const createOrder = async (orderData: OrderInput) => {
   await connectDB();
 
