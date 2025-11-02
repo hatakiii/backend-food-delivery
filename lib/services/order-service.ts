@@ -1,4 +1,4 @@
-//order-service.ts
+//app/lib/services/order-service.ts
 import connectDB from "../mongodb";
 import mongoose from "mongoose";
 import { FoodOrder } from "../models/Order";

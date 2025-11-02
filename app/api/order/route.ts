@@ -1,3 +1,4 @@
+//app/api/order/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import { FoodOrder } from "@/lib/models/Order";
