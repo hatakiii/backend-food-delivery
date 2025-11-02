@@ -12,6 +12,7 @@ export interface IFoodOrder extends Document {
   foodOrderItems: IFoodOrderItem[];
   totalPrice: number;
   status: FoodOrderStatusEnum;
+  deliveryAddress: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +32,7 @@ const FoodOrderSchema = new Schema<IFoodOrder>(
       enum: Object.values(FoodOrderStatusEnum),
       default: FoodOrderStatusEnum.PENDING,
     },
+    deliveryAddress: { type: String, required: true },
   },
   {
     timestamps: true,

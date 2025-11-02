@@ -13,6 +13,7 @@ interface OrderRequestBody {
   userId: string;
   items: CartItemRequest[];
   totalPrice: number;
+  deliveryAddress: string;
 }
 
 export async function GET(req: NextRequest) {
@@ -45,11 +46,11 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const body: OrderRequestBody = await req.json();
-    const { userId, items, totalPrice } = body;
+    const { userId, items, totalPrice, deliveryAddress } = body;
 
-    if (!userId || !items?.length) {
+    if (!userId || !items?.length || !deliveryAddress) {
       return NextResponse.json(
-        { message: "Missing userId or items" },
+        { message: "Missing userId or items or delivery address" },
         { status: 400 }
       );
     }
@@ -62,6 +63,7 @@ export async function POST(req: NextRequest) {
       })),
       totalPrice,
       status: "PENDING",
+      deliveryAddress,
     });
 
     await newOrder.save();
