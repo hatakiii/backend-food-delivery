@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const dataJson = await request.json();
-  console.log(dataJson);
+
   const { email, password, role } = await dataJson;
   const result = await createUser(email, password, role);
   if (result) {
